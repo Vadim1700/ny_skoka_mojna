@@ -1,0 +1,1 @@
+# ny_skoka_mojna
