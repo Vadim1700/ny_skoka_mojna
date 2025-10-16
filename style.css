@@ -1,0 +1,532 @@
+/* === ОБЩИЕ НАСТРОЙКИ СТРАНИЦЫ === */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  height: 100%;
+  background-color: #000;
+  overflow: hidden; /* ❌ отключаем глобальную прокрутку */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* ✅ не центрируем по вертикали */
+}
+
+
+#app {
+  width: 375px;
+  min-height: 667px;
+  max-height: none;
+  overflow-y: auto; /* ✅ авто-прокрутка */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.5s ease;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  border-radius: 20px;
+  position: relative;
+}
+
+
+/* === ВЕРХНИЙ БЛОК === */
+.top-bar {
+  display: flex; /* горизонтальное расположение элементов */
+  justify-content: space-between; /* равномерное распределение */
+  align-items: center; /* выравнивание по вертикали */
+  margin: 20px 10px 30px 10px; /* отступ сверху, по бокам и снизу */
+  padding: 10px 15px; /* внутренние отступы */
+  background-color: rgba(30, 30, 30, 0.9); /* тёмный полупрозрачный фон */
+  border-radius: 20px; /* скругление углов */
+}
+
+/* === ИКОНКИ ПЕРЕКЛЮЧЕНИЯ ТЕМЫ (СОЛНЦЕ/ЛУНА) === */
+.theme-toggle img {
+  width: 30px; /* ширина иконки */
+  height: 30px; /* высота иконки */
+  margin-right: 5px; /* отступ между иконками */
+  cursor: pointer; /* курсор при наведении */
+  transition: transform 0.2s ease; /* плавная анимация */
+}
+.theme-toggle img:active {
+  transform: scale(0.9); /* эффект нажатия */
+}
+
+/* === ИКОНКА TELEGRAM === */
+.telegram-icon img {
+  width: 30px; /* размер иконки */
+  height: 30px;
+  transition: transform 0.2s ease; /* анимация */
+}
+.telegram-icon img:active {
+  transform: scale(0.9); /* эффект нажатия */
+}
+
+/* === СЕЛЕКТОР ВЫБОРА ЯЗЫКА === */
+#language-select {
+  background-color: #222; /* тёмный фон */
+  color: white; /* белый текст */
+  border: none; /* без рамки */
+  padding: 5px; /* внутренний отступ */
+  border-radius: 5px; /* скругление */
+  font-size: 1em; /* размер шрифта */
+}
+
+/* === ИКОНКА БОТА === */
+.bot-icon img {
+  width: 30px; /* размер иконки */
+  height: 30px;
+  transition: transform 0.2s ease; /* анимация */
+}
+.bot-icon img:active {
+  transform: scale(0.9); /* эффект нажатия */
+}
+
+/* === КНОПКИ МЕНЮ (OTX / ФОРЕКС) === */
+.menu-buttons {
+  display: flex; /* вертикальное расположение */
+  flex-direction: column;
+  align-items: center; /* по центру */
+  margin-top: 50px; /* отступ сверху */
+}
+
+
+/* === ФОНЫ ДЛЯ ТЕМ === */
+.theme-light {
+  background-image: url('IMG/svet_fon.png'); /* путь к светлому фону */
+}
+
+.theme-dark {
+  background-image: url('IMG/blac_fon.png'); /* путь к тёмному фону */
+}
+
+/* 📦 Контейнер селекта */
+.language-select {
+  position: relative;
+  width: 130px; /* компактная ширина */
+  font-size: 0.9em;
+}
+
+/* 🔘 Выбранный язык */
+.selected-language {
+  display: flex;
+  align-items: center;
+  background-color: #222; /* тёмный фон */
+  color: white;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 🖼️ Флаг в выбранном языке */
+.selected-language img {
+  width: 25px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+/* 📋 Список языков */
+.language-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #222;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  display: none; /* скрыт по умолчанию */
+  z-index: 10;
+}
+
+/* 🧩 Каждая опция */
+.language-option {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.language-option:hover {
+  background-color: #333;
+}
+
+/* 🖼️ Флаг в опции */
+.language-option img {
+  width: 25px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+/* 📝 Название языка */
+.language-option span {
+  color: white;
+}
+
+
+/* === СТИЛИ КНОПОК В ЗАВИСИМОСТИ ОТ ТЕМЫ === */
+.theme-light .menu-btn {
+  background-color: white; /* светлый фон */
+  color: #222; /* тёмный текст */
+  border: 1px solid #ccc;
+}
+
+.theme-dark .menu-btn {
+  background-color: #222; /* тёмный фон */
+  color: white; /* светлый текст */
+  border: 1px solid #444;
+}
+
+/* 📊 Кнопки OTC и Форекс — расположить сразу под верхним блоком */
+.menu-buttons {
+  display: flex;                  /* горизонтальное расположение */
+  justify-content: center;       /* центрируем по ширине */
+  gap: -20px;                       /* 🔻 расстояние между кнопками (уменьшено) */
+  margin-top: -25px;             /* ⬆️ поднимаем ближе к верхнему блоку */
+  margin-bottom: 10px;           /* отступ снизу */
+  z-index: 1;                    /* поверх других элементов */
+}
+
+
+.menu-btn:active {
+  transform: scale(0.97);
+  
+}
+
+.menu-btn {
+  width: 80%; /* ширина кнопки */
+  padding: 15px; /* внутренний отступ */
+  margin: 3px 0; /* 🔻 уменьшенный отступ между кнопками */
+  font-size: 1.2em; /* размер текста */
+  border: none; /* без рамки */
+  border-radius: 10px; /* скругление */
+  background-color: rgba(255,255,255,0.8); /* светлый фон по умолчанию */
+  cursor: pointer; /* курсор при наведении */
+  transition: transform 0.2s ease; /* анимация */
+}
+
+.menu-btn:active {
+  transform: scale(0.97); /* эффект нажатия */
+}
+
+/* === ПЛАШКА ПРЕДУПРЕЖДЕНИЯ === */
+.warning-banner {
+  background-color: #ff4d4d; /* красный фон */
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* === БЛОК СИГНАЛА === */
+.signal-block {
+  background-color: rgba(255,255,255,0.6); /* светлый фон по умолчанию */
+  padding: 15px;
+  margin: 10px;
+  border-radius: 10px;
+  color: #222; /* тёмный текст */
+  box-shadow: 0 0 5px rgba(0,0,0,0.2); /* лёгкая тень */
+}
+
+/* 🌑 В тёмной теме — делаем фон темнее и текст светлее */
+.theme-dark .signal-block {
+  background-color: rgba(0,0,0,0.6);
+  color: white;
+  border: 1px solid #555; /* обводка для видимости */
+}
+
+/* === ЗАГОЛОВОК ПО ЦЕНТРУ === */
+.signal-block h3 {
+  margin-bottom: 15px;
+  font-size: 1.1em;
+  text-align: center; /* центрирование текста */
+  text-shadow: 0 0 2px rgba(0,0,0,0.5); /* лёгкая обводка */
+}
+
+/* === МЕТКИ И СЕЛЕКТЫ === */
+.signal-block label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-shadow: 0 0 1px rgba(0,0,0,0.4); /* обводка текста */
+}
+
+.signal-block select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1em;
+  background-color: #f0f0f0; /* светлый фон */
+  color: #222;
+}
+
+/* 🌑 В тёмной теме — селекты тоже тёмные */
+.theme-dark .signal-block select {
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+}
+
+
+/* 🟢 Кнопка "Получить сигнал" */
+.get-signal-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+/* 🌞 Светлая тема — ярко-зелёная кнопка */
+.theme-light .get-signal-btn {
+  background-color: #4CAF50; /* зелёный фон */
+  color: white;
+  border: 1px solid #3e8e41;
+}
+
+/* 🌙 Тёмная тема — насыщенный зелёный с контрастом */
+.theme-dark .get-signal-btn {
+  background-color: #2e7d32; /* тёмно-зелёный */
+  color: white;
+  border: 1px solid #1b5e20;
+}
+
+/* 🔘 Эффект нажатия */
+.get-signal-btn:active {
+  transform: scale(0.97);
+}
+
+/* 🔄 Блок загрузки */
+.signal-loading {
+  background-color: rgba(255,255,255,0.2);
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: white;
+}
+
+/* 📦 Блок сигнала */
+.signal-result {
+  background-color: rgba(255, 255, 255, 0.9); /* светлый фон */
+  padding: 16px;
+  margin: 20px auto;
+  border-radius: 12px;
+  color: inherit;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* мягкая тень */
+  width: 90%; /* ✅ делаем чуть уже */
+  max-width: 320px; /* ограничиваем ширину */
+  border: 1px solid #ddd; /* ✅ видимая граница */
+}
+
+
+/* 🧾 Заголовок сигнала */
+.signal-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* 📌 Центрирование текста */
+.centered-text {
+  text-align: center;
+  margin: 8px 0;
+}
+
+/* ✅ Уровень уверенности */
+.confidence-level {
+  color: #4CAF50; /* зелёный текст */
+  font-weight: bold;
+}
+
+/* 🔺 Покупка / продажа */
+.buy {
+  color: #4CAF50;
+  font-weight: bold;
+}
+.sell {
+  color: #f44336;
+  font-weight: bold;
+}
+
+
+/* 🌍 Базовые стили для всей страницы */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto; /* ✅ разрешаем вертикальную прокрутку */
+  font-family: sans-serif;
+}
+
+/* 📦 Контейнер, если используется */
+.main-container {
+  min-height: 100vh; /* растягиваем на всю высоту экрана */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 🧱 Если есть фиксированные блоки (например, верхний бар), убедись, что они не перекрывают контент */
+.top-bar {
+  position: relative; /* или fixed, но тогда нужно добавить отступ к основному контенту */
+  z-index: 10;
+}
+
+#signal-reason-text {
+  display: block;
+  color: white;
+  font-size: 1em;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.signal-body {
+  max-height: none;
+  overflow: visible;
+}
+
+.app-wrapper {
+  width: 375px;
+  height: 667px;
+  overflow: hidden; /* ✅ скрываем скроллбар */
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  background-color: transparent;
+  position: relative;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#app::-webkit-scrollbar {
+  display: none;
+}
+.signal-box {
+  border: 1px solid rgba(255, 255, 255, 0.3); /* светлая рамка */
+  border-radius: 10px;
+  padding: 12px;
+  margin: 10px 0;
+  background-color: rgba(255, 255, 255, 0.05); /* лёгкий фон */
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); /* тень */
+}
+
+.theme-light {
+  background-image: none;
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+/* 🌞 Светлая тема — адаптация блоков */
+.theme-light .signal-block,
+.theme-light .signal-box,
+.theme-light #signal-loading {
+  background-color: #ffffff;
+  color: #222;
+  border: 1px solid #ddd;
+}
+
+/* ✅ Блок сигнала — светлый только в светлой теме */
+.theme-light .signal-result {
+  background-color: #ffffff;
+  color: #222;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ✅ Текстовые элементы внутри сигнала */
+.theme-light .signal-header,
+.theme-light .centered-text,
+.theme-light .signal-body,
+.theme-light .signal-reason,
+.theme-light .signal-info,
+.theme-light .signal-details,
+.theme-light #signal-reason-text,
+.theme-light #loading-text {
+  color: #222;
+}
+
+/* ✅ Цвета действий и уверенности */
+.theme-light .confidence-level {
+  color: #2e7d32;
+}
+.theme-light .buy {
+  color: #2e7d32;
+}
+.theme-light .sell {
+  color: #c62828;
+}
+
+/* 🌙 Тёмная тема — блок сигнала остаётся тёмным */
+.theme-dark .signal-result {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: 1px solid #555;
+}
+
+.action-icon {
+  width: 30px;  /* размер стрелок */
+  height: 30px; /* размер стрелок */
+  vertical-align: middle;
+  margin: 0 6px;
+}
+
+#signal-pair {
+  font-weight: bold;
+  font-size: 1.2em; /* или попробуй 18px, 20px — по вкусу */
+}
+
+.countdown-text {
+  margin-top: 8px;
+  font-size: 14px;
+  color: red;
+  text-align: center;
+}
+
+/* Убираем переопределение цвета в темах */
+.theme-light .countdown-text,
+.theme-dark .countdown-text {
+  color: red;
+}
+
+
+.market-warning {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90vw;
+  width: fit-content;
+  background-color: #ffe0e0;
+  color: #b00000;
+  padding: 10px 16px;
+  font-size: 14px;
+  border: 1px solid #ffaaaa;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  text-align: center;
+  word-wrap: break-word;
+}
+.market-warning.show {
+  opacity: 1;
+}
